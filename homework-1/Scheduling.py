@@ -3,40 +3,39 @@
 class Scheduling:
     def __init__(self, list_of_processes):
         self.processes = list_of_processes
+        self.process_length = len(self.processes)
 
-    # shorter the required CPU time the higher the priority
-    # arbitration rule: if same CPU time then selects based on arrival times
-    # non-preemptive
     def shortest_job_first(self):
-        # calculate turnaround time
-        # time start at 0 these are outside the for loop to keep track of time moving forward
+        # init variables for average turnaround time
         current_time = 0
         total_turnaround_time = 0
-
+        # sort processes by arrival time first 
         # https://stackoverflow.com/questions/4174941/how-to-sort-a-list-of-lists-by-a-specific-index-of-the-inner-list
-        # sorted_burst_time = sorted(self.processes, key=lambda cpu_time: cpu_time[2])
+        processes = sorted(self.processes, key=lambda arrival_time: arrival_time[1])
 
-
-        # sort by fasest process burst time 
-        # https://stackoverflow.com/questions/4174941/how-to-sort-a-list-of-lists-by-a-specific-index-of-the-inner-list
-
-        sorted_burst_time = sorted(self.processes, key=lambda cpu_time: cpu_time[2])
-        # iterate through sorted process list
-        for process in sorted_burst_time:
-            arrival_time = process[1]
-            burst_time = process[2]
-
-            # calculate completion time which is the start time for the first process
-            # add to it has the algo completes 
+        while processes:
+            # get the next available process based on current time (0 for first loop)
+            available_processes = [process for process in processes if process[1] <= current_time]
+            if not available_processes:
+                # if no process available at current time increment current time
+                current_time += 1
+                continue
+            
+            # now sort the available processes by burst time
+            # used min since this simply grabs the process with the shortest burst time (the loop above sorts the whole list)
+            process_queue = min(available_processes, key=lambda burst_time: burst_time[2])
+            print(process_queue)
+            # remove from the list of processes so the while loop can end
+            processes.remove(process_queue)
+            arrival_time = process_queue[1]
+            burst_time = process_queue[2]
             completion_time = current_time + burst_time
-            # difference between completion time and arrival time
             turnaround_time = completion_time - arrival_time
-            # accumulate total turnaround time
             total_turnaround_time += turnaround_time
-            # since SJF we add to it immediatly since it is non-preemptive
+            # move current time to the process that was just completed time
             current_time += burst_time
-        # average turnaround time is the sum of turnaround time divded by number of processes
-        average_turnaround_time = total_turnaround_time / len(sorted_burst_time)
+        # calculate the average turnaround time 
+        average_turnaround_time = total_turnaround_time / self.process_length
         return average_turnaround_time
 
     
@@ -45,17 +44,3 @@ class Scheduling:
     # preemptive 
     def shortest_remaining_time(self):
         pass
-
-    # time between arrival and departure and is the sum of total CPU time and waiting time
-    # TAT = waiting time + CPU Burst time
-    # Average TAT = sum of all TAT / mean of n individual turnaround times
-    def calculate_turnaround_time(self):
-        pass
-
-
-        # this is a callback function that can update attributes of the class to be processed 
-    # def callback(self):
-    #     self.process_name = self.process_name
-    #     self.arrival_time = self.arrival_time
-    #     self.burst_time = self.burst_time
-    #     self.priority = self.priority

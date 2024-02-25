@@ -4,7 +4,7 @@ from Input import ProcessCSV
 from Scheduling import Scheduling
 
 # Global variables change input file name here
-FILE = "homework-1/test/input1.csv"
+FILE = "homework-1/test/input.csv"
 
 if __name__ == "__main__":
     # read in CSV file 
@@ -18,3 +18,4 @@ if __name__ == "__main__":
     test = Scheduling(processes)
     average_turnaround_time = test.shortest_job_first()
     print(average_turnaround_time)
+    
