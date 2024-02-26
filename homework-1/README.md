@@ -147,7 +147,7 @@ class Scheduling:
 ###  Inputs.py
 Here is my first file `Inputs.py` with class `ProcessCSV` which is responsible for importing the CSV file.
 
-![inputs](/assets/img/input.png)
+![inputs](assets/img/input.png)
 
 ### Scheduling.py
 Here is my second file is `Scheduling.py` with class `Scheduling` this includes **shortest job first** output 
@@ -156,27 +156,25 @@ Here is my second file is `Scheduling.py` with class `Scheduling` this includes 
 
 **shortest time remaining** output
 
-![inputs](/assets/img/srt_output.png)
+![inputs](assets/img/srt_output.png)
 
 # Section 3 - Implementation Details
-### Thought Process:
-My thought process going into this was what are my inputs and how am I going to process them. 
+### Thought Process/Challenges:
+My first question going into this was how am I going to manage my data. When I import the CSV how am I going to hold onto that data until the end of the program, what kind of data structure am I going to use. I started with two classes for keeping track of my data ([git commit](https://github.com/Jordinaa/cs431/commit/961cdbe5d69de94bb0fcbeb7a8e18cbe69034f59) near the bottom of the page):
+1. class `ProcessCSV` which reads in the CSV file
+2. class `Process` which stores my my processes has objects 
+The issues I came across was composition vs. inheritance. Because when I appended my data from my CSV I immediately instantiated my Process class and appended the objects to a list like so `self.processes.append(Process(process_name, arrival_time, burst_time, priority))` and, well this just didn't sit right with me for some reason (lack of sleep) so I decided not to do it since this is a CSV file not a live data stream. So I kept it "simple/r" and stuck with a single ProcessCSV class returning a list of lists. 
 
-asdf [inputs](/assets/img/srt_output.png)
+The second thought I had was my `main.py` file. Do I want to have loops and variable inside of `main.py` file or do I want to just keep a lot of my logic inside a method. I chose to keep it inside the method because I hate the messy look of a `main.py` file. 
 
-# Thought process
-- Input class 
-	- which takes file path and any number of inputs and automatically assigns it to a list of lists
-	- settled on just one class for simplicity and assignments sake
-- process class
-	- can be called inside of the input class making a list of objects 
-		- tried this but inheritance vs composition but wasn't sure can check git repo for this implementation 
-	- takes list of lists allowing for more detailed analysis on processes
-- CLI GUI class
-	- uses dashes fixed on at the top for x amount of time
-	- below this is shows how and which process ran when 
+The third was my `Scheduling.py` how am I going to write my algorithms. Do I want each one to have its own class? or do I want to keep it inside of one class. Since they are similar algorithms I thought Id try writing two separate methods and have a sort of "helper" function that would dictate the preemptive vs. non-preemptive aspect. Has I was writing this I kept getting stuck on the burst time and changing the data of a list that was being used within the class by two different methods. So I decided to just make them two seperate methods and dropping the "helper" functions all together. 
 
+Here is one [issue](https://github.com/Jordinaa/cs431/commit/963968ca4ad358a0501056f2aa4ed28ba9a55e77) in particular that I couldn't figure out for a bit. Here is the output ![inputs](assets/img/arrival_time.png)
+The data being used for this test was taken from the powerpoint in class **Section 3.2 slide 20** it gave me three inputs and the average turnaround time for each algorithm, so I had something to compare my output to. I started out using a "for loop" but before it entered the for loop I sorted the list by burst time. This meant that the first process that would arrive might not have the fastest burst time so I would process them in the wrong order. So thats when I switched to a while loop and decided it would be better to just have Python do the work for me. Before entering the loop I sorted the list by arrival time `processes = sorted(self.processes, key=lambda arrival_time: arrival_time[1])`
+that way when it entered the loop it would have something in the queue. After that, then I would start pulling the min burst time `process_queue = min(available_processes, key=lambda burst_time: burst_time[2])`. 
+### Insight
+I should have made a `class Process` to store all of my data in. I brought it up earlier and decided against it but **if** I wanted to scale this up or move onto a live datastream, I think it would have had many uses. Such as processing the previous and present object in real time, and having the rest drop off. Hell, maybe even estimate the future state of a PC (Numerical methods anyone??) no idea how that would work. It just what I have done in the past with drones and aircrafts. 
 
-# References
-- Reading CSVs and other data my github repo
-	- https://github.com/Jordinaa/supervisor/blob/master/scripts/fesupervisor.py
+I would also utilized my `main.py` the trade-off was that my `Scheduling.py` file looks disgusting and my `main.py` file is practically empty. 
+
+Was a fun assignment I will start the next one sooner, I learned a lot. 
