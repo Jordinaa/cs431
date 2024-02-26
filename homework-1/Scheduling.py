@@ -57,7 +57,11 @@ class Scheduling:
                 current_time += 1
                 continue
             process_queue = min(available_processes, key=lambda burst_time: burst_time[2])
-            self.srt_turnaround_time.append(process_queue)
+
+            # for screenshots to compare
+            if process_queue not in self.srt_turnaround_time:
+                self.srt_turnaround_time.append(process_queue)
+                continue
 
             # subtracting burst time directly from the process list not recommended (i would have a process class)
             # this is the preemptive part which helps determine shortest remaining time 

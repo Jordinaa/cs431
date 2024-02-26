@@ -52,5 +52,3 @@
 # References
 - Reading CSVs and other data my github repo
 	- https://github.com/Jordinaa/supervisor/blob/master/scripts/fesupervisor.py
-- Shortest job first 
-	- https://www.javatpoint.com/shortest-job-first-cpu-scheduling-python-program

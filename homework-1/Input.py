@@ -1,6 +1,7 @@
 # Author: Jordan Taranto
 import csv 
-
+# reference is from an older project of mine
+# https://github.com/Jordinaa/supervisor/blob/master/scripts/fesupervisor.py
 class ProcessCSV: 
     def __init__(self, file_path):
         self.file_path = file_path
