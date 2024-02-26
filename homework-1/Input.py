@@ -8,11 +8,6 @@ class ProcessCSV:
         self.processes_list = []
         self.read_input()
 
-        self.process_name = self.process_name
-        self.arrival_time = self.arrival_time
-        self.burst_time = self.burst_time
-        self.priority = self.priority
-
     # input CSV file read data and assign to class attributes and append to list of processes
     def read_input(self):
         self.csv_file = open(self.file_path, 'r')

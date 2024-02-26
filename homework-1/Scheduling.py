@@ -4,9 +4,6 @@ class Scheduling:
     def __init__(self, list_of_processes):
         self.processes = list_of_processes
         self.process_length = len(self.processes)
-        # history to append process times etc for a nice print out
-        self.sjf_turnaround_time = []
-        self.srt_turnaround_time = []
 
     def shortest_job_first(self):
         current_time = 0
@@ -26,7 +23,6 @@ class Scheduling:
             # now sort the available processes by burst time
             # used min since this simply grabs the process with the shortest burst time (the loop above sorts the whole list by arrival time)
             process_queue = min(available_processes, key=lambda burst_time: burst_time[2])
-            self.sjf_turnaround_time.append(process_queue)
 
             # remove from the process from the list
             processes.remove(process_queue)
@@ -34,8 +30,8 @@ class Scheduling:
             burst_time = process_queue[2]
             completion_time = current_time + burst_time
             turnaround_time = completion_time - arrival_time
-            self.sjf_turnaround_time.append(turnaround_time)
             total_turnaround_time += turnaround_time
+            print(f"Process: {process_queue[0]} Arrival Time: {arrival_time} Burst Time: {burst_time} Completion Time: {completion_time} Turnaround Time: {turnaround_time}")
 
             # adds to current time since burst time is the time it takes to complete the process 
             current_time += burst_time
@@ -58,11 +54,6 @@ class Scheduling:
                 continue
             process_queue = min(available_processes, key=lambda burst_time: burst_time[2])
 
-            # for screenshots to compare
-            if process_queue not in self.srt_turnaround_time:
-                self.srt_turnaround_time.append(process_queue)
-                continue
-
             # subtracting burst time directly from the process list not recommended (i would have a process class)
             # this is the preemptive part which helps determine shortest remaining time 
             process_queue[2] -= 1
@@ -72,7 +63,7 @@ class Scheduling:
                 completion_time = current_time + 1
                 turnaround_time = completion_time - arrival_time
                 total_turnaround_time += turnaround_time
-                self.srt_turnaround_time.append(turnaround_time)
+                print(f"Process: {process_queue[0]} Arrival Time: {arrival_time} Completion Time: {completion_time} Turnaround Time: {turnaround_time}")
             
             # increment current time
             current_time += 1

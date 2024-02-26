@@ -17,10 +17,8 @@ if __name__ == "__main__":
     sjf = Scheduling(processes)
     sjf_att = sjf.shortest_job_first()
     print(f"Average turnaround time: {sjf_att}")
-    print(sjf.sjf_turnaround_time)
 
     # shortest remaining time first
     srt = Scheduling(processes)
     srt_att = srt.shortest_remaining_time()
     print(f"Average turnaround time: {srt_att}")
-    print(srt.srt_turnaround_time)
