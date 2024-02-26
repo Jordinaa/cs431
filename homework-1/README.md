@@ -3,6 +3,7 @@
 #### CS431
 ### Github: https://github.com/Jordinaa/cs431/tree/main/homework-1
 # Section 1 - Code Implementation
+### Main.py
 ``` main.py
 from Input import ProcessCSV
 from Scheduling import Scheduling
@@ -30,7 +31,7 @@ if __name__ == "__main__":
 	print(f"Average turnaround time: {srt_att}")
 	print(srt.srt_turnaround_time)
 ```
-
+### Input.py
 ```Input.py
 import csv 
 # reference is from an older project of mine
@@ -69,7 +70,7 @@ class ProcessCSV:
         for process in self.processes_list:
             print(f"Name: {process[0]}\nArrival Time: {process[1]}\nBurst Time: {process[2]}\nPriority: {process[3]}\n")
 ```
-
+### Scheduling.py
 ```Scheduling.py
 class Scheduling:
     def __init__(self, list_of_processes):
@@ -145,13 +146,16 @@ class Scheduling:
 # Section 2 - Outputs
 ###  Inputs.py
 Here is my first file `Inputs.py` with class `ProcessCSV` which is responsible for importing the CSV file.
+
 ![inputs](/assets/img/input.png)
 
 ### Scheduling.py
 Here is my second file is `Scheduling.py` with class `Scheduling` this includes **shortest job first** output 
+
 ![inputs](/assets/img/sjf_output.png)
 
 **shortest time remaining** output
+
 ![inputs](/assets/img/srt_output.png)
 
 # Section 3 - Implementation Details
