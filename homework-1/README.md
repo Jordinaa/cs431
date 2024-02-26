@@ -152,7 +152,7 @@ Here is my first file `Inputs.py` with class `ProcessCSV` which is responsible f
 ### Scheduling.py
 Here is my second file is `Scheduling.py` with class `Scheduling` this includes **shortest job first** output 
 
-![inputs](/assets/img/sjf_output.png)
+![inputs](assets/img/sjf_output.png)
 
 **shortest time remaining** output
 
