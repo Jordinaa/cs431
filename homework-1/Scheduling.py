@@ -69,7 +69,6 @@ class Scheduling:
                 turnaround_time = completion_time - arrival_time
                 total_turnaround_time += turnaround_time
                 self.srt_turnaround_time.append(turnaround_time)
-
             
             # increment current time
             current_time += 1
