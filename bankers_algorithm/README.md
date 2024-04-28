@@ -10,6 +10,7 @@ CS431
 ![main.py](/bankers_algorithm/assets/img/BankersAlgo.png)
 
 # Section 2: Outputs
+#### Output of sequence 
 ![Output](/bankers_algorithm/assets/img/output.png)
 # Section 3: Implementation Details
 
